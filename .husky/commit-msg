@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 message="$(cat $1)"
-requiredPattern="^(:[\w-]+:)(init|feat|test|fix|docs|style|refactor|perf|build|ci|chore|revert): .+$"
+requiredPattern="(init|feat|test|fix|docs|style|refactor|perf|build|ci|chore|revert): .+$"
 
 # Use grep with Perl-compatible regex for emoji support
 if ! echo "$message" | grep -Pq "$requiredPattern"; then
