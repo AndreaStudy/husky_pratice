@@ -3,46 +3,75 @@
 1. next install 하기
    
    - npx create-next-app@latest .
-   
-   
 
 2. eslint, prettier install 하기
    
    - npm install --save-dev --save-exact prettier
    - npm install --save-dev eslint-config-prettier
-   
-   
 
 3. prettier configuration update
    
    - .prettierrc.json (기본 설정하는 파일)
+   
+   ```json
+   {
+     "printWidth": 80,
+     "tabWidth": 2,
+     "useTabs": false,
+     "semi": true,
+     "singleQuote": true,
+     "quoteProps": "consistent",
+     "trailingComma": "es5",
+     "bracketSpacing": true,
+     "arrowParens": "always",
+     "endOfLine": "lf",
+     "jsxBracketSameLine": false,
+     "jsxSingleQuote": false,
+     "htmlWhitespaceSensitivity": "css",
+     "vueIndentScriptAndStyle": false
+   }
+   ```
+   
+   
+   
    - .prettierignore (설정 무시하는 파일 설정)
-   
-   
 
 4. prettier extenstion install 하기 
    
    - prettier - code formatter install(vscode extension)
-   
-   
 
 5. prettier extenstion 설정(안해도 됨.)
    
    - formatter on Save (저장할 때 자동 포매팅)
-   
-   
+
+6. eslintrc.json 설정
+
+```json
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"]
+  }
+}
+```
+
+
 
 6. husky install
    
    - npx husky-init && npm install
-   
-   
 
 7. add pre-commit
    
    - npx husky add .husky/pre-commit "npx lint-staged"
-   
-   
 
 8. install lint-staged
    
@@ -61,8 +90,6 @@
 9. add commit-msg
    
    - npx husky add .husky/commit-msg
-   
-   
 
 10. modify commit-msg
 
@@ -71,14 +98,14 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 message="$(cat $1)"
-requiredPattern="^(:[\w-]+:)(init|feat|test|fix|docs|style|refactor|perf|build|ci|chore|revert): .+$"
+requiredPattern="^(init|feat|test|fix|docs|style|refactor|perf|build|ci|chore|revert): .+$"
 
 # Use grep with Perl-compatible regex for emoji support
 if ! echo "$message" | grep -Pq "$requiredPattern"; then
   echo "=========================================================================="
   echo "======================   🚨 WRONG COMMIT MESSAGE!   ======================"
   echo "=========================================================================="
-  echo "== Format should be => [emoji][type]: [subject]                         =="
+  echo "== Format should be => [type]: [subject]                         =="
   echo "== Allowed Types: init, feat, test, fix, docs, style, refactor, perf, build, ci, chore, revert =="
   echo "== EXAMPLE => :emoji_name:feat: Add new feature                         =="
   echo "=========================================================================="
